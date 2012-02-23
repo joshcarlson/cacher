@@ -98,17 +98,6 @@ class CacheBehavior extends ModelBehavior {
 				$this->cacheResults = (boolean)$queryData['cacher'];
 			}
 			unset($queryData['cacher']);
-
-			// gzip settings, add to $queryData if true, remove from $queryData if not true (for uncompressed key consistency)
-			if (isset($queryData['gzip'])) {
-				$queryData['gzip'] = (boolean)$queryData['gzip'];
-				if (!$queryData['gzip']) {
-					unset($queryData['gzip']);
-				}
-			} elseif (isset($this->settings[$Model->alias]['gzip'])
-				&& (boolean)$this->settings[$Model->alias]['gzip'] === true) {
-				$queryData['gzip'] = true;
-			}
 		}
 		$this->cacheResults = $this->cacheResults || $this->settings[$Model->alias]['auto'];
 		
